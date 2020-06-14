@@ -1,53 +1,72 @@
 ﻿<?php
 
-class Sql extends PDO{
+class Marcas{
 
-	private $conn;
+	private $id_master;
+    private $id_oper;
+    private $cd_marca;
+    private $ds_marca;
+    private $ds_obs_marca;
+    private $dt_cad_marca;
+    private $dt_alt_marca;
+    private $es_inat_marca;
 
-	public function __construct(){
+    public function getIdMaster(){
+    	return $this->id_master;
+    }
+    public function setIdMaster($value){
+    	$this->id_master = $value;
+    }
 
-		$this->conn = new PDO("mysql:dbname=id2143575_in;host=localhost", "id2143575_in", "tsin140899");
+    public function getIdOper(){
+    	return $this->id_oper;
+    }
+    public function setIdOper($value){
+    	$this->id_oper = $value;
+    }
 
-	}
+    public function getCdMarca(){
+    	return $this->cd_marca;
+    }
+    public function setCdMarca($value){
+    	$this->cd_marca = $value;
+    }
 
-	private function setParams($statment, $parameters = array()){
+    public function getDsMarca(){
+    	return $this->ds_marca;
+    }
+    public function setDsMarca($value){
+    	$this->ds_marca = $value;
+    }
 
-		foreach ($parameters as $key => $value) {
-		
-			$this->setParam($key, $value);
+    public function getDsObsMarca(){
+    	return $this->ds_obs_marca;
+    }
+    public function setDsObsMarca($value){
+    	$this->ds_obs_marca = $value;
+    }
 
-		}
+    public function getDtCadMarca(){
+    	return $this->dt_cad_marca;
+    }
+    public function setDtCadMarca($value){
+    	$this->dt_cad_marca = $value;
+    }
 
-	}
+    public function getDtAltMarca(){
+    	return $this->dt_alt_marca;
+    }
+    public function setDtAltMarca($value){
+    	$this->dt_alt_marca = $value;
+    }
 
-	private function setParam($statment, $key, $value){
-		
-		$statment->bindParam($key, $value);
+    public function getEsInatMarca(){
+    	return $this->es_inat_marca;
+    }
+    public function setEsInatMarca($value){
+    	$this->es_inat_marca = $value;
+    }
 
-	}
-
-	public function query($rawQuery, $params = array()){
-
-		$stmt = $this->conn->prepare($rawQuery);
-
-		$this->setParams($stmt, $params);
-
-		$stmt->execute();		
-
-		return $stmt;
-
-	}
-
-	public function select($rawQuery, $params = array()):array
-	{
-
-		$stmt = $this->query($rawQuery, $params);
-
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-	}
-
-	
 }
 
 ?>
