@@ -25,6 +25,13 @@ class Marcas{
     	$this->id_oper = $value;
     }
 
+    public function getIdMarca(){
+    	return $this->id_marca;
+    }
+    public function setIdMarca($value){
+    	$this->id_marca = $value;
+    }
+
     public function getCdMarca(){
     	return $this->cd_marca;
     }
@@ -67,6 +74,50 @@ class Marcas{
     	$this->es_inat_marca = $value;
     }
 
-}
+    public function buscaId($id){
 
-?>
+    	$sql = new Sql();
+
+    	$results = $sql->select("SELECT * FROM tb_marcas WHERE id_marca = :ID_MARCA", array(
+    	":ID_MARCA"=>$id
+		));
+    
+    	if(count($results) > 0){
+
+    		$row = $results[0];
+
+    		$this->setIdMaster($row['id_master']);
+    		$this->setIdOper($row['id_oper']);
+    		$this->setIdMarca($row['id_marca']);
+    		$this->setCdMarca($row['cd_marca']);
+    		$this->setDsMarca($row['ds_marca']);
+    		$this->setDsObsMarca($row['ds_obs_marca']);
+    		$this->setDtCadMarca(new DateTime($row['dt_cad_marca']));
+    		$this->setDtAltMarca(new DateTime($row['dt_alt_marca']));
+    		//$this->setDtCadMarca($row['dt_cad_marca']);
+    		//$this->setDtAltMarca($row['dt_alt_marca']);
+    		$this->setEsInatMarca($row['es_inat_marca']);
+
+    	}
+
+    }
+
+    public function __toString(){
+
+    	return json_encode(array(
+    		"id_master"=>$this->getIdMaster(),
+    		"id_oper"=>$this->getIdOper(),
+    		"id_marca"=>$this->getIdMarca(),
+    		"cd_marca"=>$this->getCdMarca(),
+    		"ds_marca"=>$this->getDsMarca(),
+    		"ds_obs_marca"=>$this->getDsObsMarca(),
+    		"dt_cad_marca"=>$this->getDtCadMarca()->format("d/m/Y H:i:s"),
+    		"dt_alt_marca"=>$this->getDtAltMarca()->format("d/m/Y H:i:s"),
+    		//"dt_cad_marca"=>$this->getDtCadMarca(),
+    		//"dt_alt_marca"=>$this->getDtAltMarca(),
+    		"es_inat_marca"=>$this->getEsInatMarca()
+    	));
+
+    }
+
+}

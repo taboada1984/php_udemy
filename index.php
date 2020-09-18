@@ -2,10 +2,18 @@
 
 require_once("config.php");
 
-$sql = new Sql();
+//Forma simplificada de utilizar a classe Sql
+//$sql = new Sql();
+//$marcas = $sql->select("SELECT * FROM tb_marcas");
+//echo json_encode($marcas);
 
-$marcas = $sql->select("SELECT * FROM tb_marcas");
+//Utilizando a classe Marcas
+$busca_marca = new Marcas();
 
-echo json_encode($marcas);
+$marca = "62";
+
+$busca_marca->buscaId($marca);
+
+echo $busca_marca;
 
 ?>
